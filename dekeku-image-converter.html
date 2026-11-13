@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DEKEKU Tools — Image Converter</title>
+<style>
+:root{--blue:#0866e8;--blue2:#0b4fb8;--ink:#10244d;--muted:#60708e;--line:#dce7f7;--bg:#f4f8ff;--green:#16a34a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:#fff;border-bottom:1px solid var(--line);padding:16px 5%;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:3}
+.brand{font-weight:850;font-size:22px;letter-spacing:.3px;color:#102c65}.brand small{display:block;font-size:10px;letter-spacing:3px;color:var(--blue);margin-top:-5px}
+nav{display:flex;gap:20px;color:#233963;font-weight:650}nav a{color:inherit;text-decoration:none}
+.pill{background:#edf5ff;padding:8px 14px;border-radius:99px;font-size:12px;font-weight:700}
+main{max-width:1180px;margin:34px auto;padding:0 20px}
+.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:20px;align-items:center;margin-bottom:28px}
+h1{font-size:clamp(30px,4vw,48px);line-height:1.08;margin:0 0 14px;letter-spacing:-1.5px}h1 span{color:var(--blue)}
+.lead{font-size:17px;color:var(--muted);max-width:650px;margin:0 0 18px}
+.checks{display:flex;gap:8px;flex-wrap:wrap}.checks span{background:#e7f1ff;border-radius:30px;padding:6px 11px;font-size:12px;font-weight:700}
+.hero-note{background:linear-gradient(135deg,#e4f1ff,#fff);border:1px solid #d1e5ff;border-radius:20px;padding:22px}
+.hero-note h3{margin:0 0 8px}.hero-note p{color:var(--muted);margin:0}
+.layout{display:grid;grid-template-columns:1.6fr .9fr;gap:20px}
+.card{background:white;border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 24px #1d4d8a0a;overflow:hidden}
+.card-head{background:linear-gradient(100deg,var(--blue),#0755c7);color:#fff;padding:14px 20px;font-size:18px;font-weight:800}
+.card-body{padding:22px}
+.columns{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.section-title{font-weight:800;margin:0 0 12px;font-size:16px}
+.drop{border:2px dashed #b8cbe7;border-radius:14px;min-height:230px;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;background:#f9fbff;cursor:pointer;transition:.2s}
+.drop.drag{border-color:var(--blue);background:#edf5ff}.drop strong{display:block;font-size:16px;margin:10px 0}.drop small{color:var(--muted)}
+.upload-icon{font-size:44px;color:var(--blue)}
+button,.btn{border:0;border-radius:10px;padding:11px 17px;font:inherit;font-weight:750;cursor:pointer;background:var(--blue);color:white;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+button:hover{filter:brightness(.96)}button.secondary{background:#edf4ff;color:var(--blue);border:1px solid #d4e5ff}button.green{background:var(--green)}button:disabled{opacity:.45;cursor:not-allowed}
+label{display:block;font-weight:750;margin:0 0 6px}select,input[type=number],input[type=text]{width:100%;padding:10px 12px;border:1px solid #ccd9eb;border-radius:9px;background:white;color:var(--ink);font:inherit;margin-bottom:14px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+input[type=range]{width:100%;accent-color:var(--blue)}.range-line{display:flex;justify-content:space-between;font-weight:750}
+.checkrow{display:flex;align-items:center;gap:9px;margin:8px 0 16px}.checkrow input{accent-color:var(--blue);width:17px;height:17px}
+.convert{width:100%;margin-top:10px;font-size:17px;padding:14px}
+.preview{background:#f7faff;border:1px solid var(--line);border-radius:12px;min-height:210px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.preview img{max-width:100%;max-height:300px;object-fit:contain;display:block}.placeholder{color:#8a9bb8;text-align:center;padding:25px}
+.details{margin:15px 0;color:#526582;font-size:14px}.details div{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-bottom:1px dashed #e2eaf5}.details b{color:var(--ink);text-align:right}
+.actions{display:flex;gap:8px}.actions button{flex:1}
+.status{font-size:13px;color:var(--muted);margin-top:12px;min-height:20px}
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}.feature{background:white;border:1px solid var(--line);border-radius:13px;padding:14px;text-align:center;font-weight:750}.feature span{display:block;color:var(--muted);font-size:12px;font-weight:500}
+.tip{background:#e7f2ff;border:1px solid #c8e0ff;border-radius:14px;padding:17px 20px;color:#16386e}.tip strong{font-size:16px}
+footer{text-align:center;color:#73829d;padding:28px;font-size:12px}
+.hidden{display:none!important}
+@media(max-width:850px){.hero,.layout{grid-template-columns:1fr}.hero-note{display:none}.columns{grid-template-columns:1fr}.features{grid-template-columns:repeat(2,1fr)}nav{display:none}header{padding:14px 20px}}
+@media(max-width:480px){main{padding:0 12px;margin:22px auto}.card-body{padding:15px}.features{grid-template-columns:1fr 1fr}.row{gap:7px}}
+</style>
+</head>
+<body>
+<header><div class="brand">DEKEKU <small>TOOLS</small></div><nav><a href="#">Beranda</a><a href="#converter">Image Converter</a><a href="#tips">Panduan</a></nav><div class="pill">⚡ Cepat · Gratis · Offline</div></header>
+<main>
+<section class="hero">
+<div><h1>Konversi Gambar<br>untuk <span>Website</span></h1><p class="lead">Ubah gambar ke format dan ukuran standar website dengan mudah, cepat, dan tetap berkualitas.</p><div class="checks"><span>✓ WebP, JPG, PNG</span><span>✓ Preset ukuran</span><span>✓ Privat di perangkat</span></div></div>
+<div class="hero-note"><h3>🚀 Website lebih cepat</h3><p>Optimalkan ukuran file gambar agar halaman lebih ringan dan loading lebih cepat.</p></div>
+</section>
+<div class="layout" id="converter">
+<section class="card"><div class="card-head">⚙️ Converter Gambar</div><div class="card-body">
+<div class="columns">
+<div><p class="section-title">① Pilih gambar</p><div class="drop" id="drop"><div><div class="upload-icon">☁</div><strong>Seret dan lepas gambar di sini</strong><p>atau</p><button type="button" id="browse">📁 Pilih File</button><br><small>JPG, PNG, WebP, GIF, BMP · Maks. 30 MB</small></div></div><input id="file" type="file" accept="image/*" class="hidden"><p class="status" id="fileStatus">Belum ada gambar dipilih.</p></div>
+<div><p class="section-title">② Atur opsi konversi</p>
+<label for="format">Format output</label><select id="format"><option value="image/webp">WebP (Rekomendasi)</option><option value="image/jpeg">JPG / JPEG</option><option value="image/png">PNG (tanpa lossy)</option></select>
+<label for="preset">Ukuran gambar</label><select id="preset"><option value="original">Ukuran asli</option><option value="thumb">Thumbnail (400 × 300)</option><option value="card">Kartu / listing (800 × 600)</option><option value="blog" selected>Artikel website (1200 × 800)</option><option value="standard">Standar website (1024 × 683)</option><option value="hero">Hero / banner (1920 × 800)</option><option value="square">Kotak (800 × 800)</option><option value="custom">Custom</option></select>
+<div class="row" id="customSize" style="display:none"><div><label for="width">Lebar (px)</label><input id="width" type="number" min="1" max="10000" value="1200"></div><div><label for="height">Tinggi (px)</label><input id="height" type="number" min="1" max="10000" value="800"></div></div>
+<label for="quality">Kualitas</label><div class="range-line"><span id="qualityText">82%</span><span>Lebih kecil ← → Lebih tajam</span></div><input id="quality" type="range" min="10" max="100" value="82">
+<div class="checkrow"><input id="ratio" type="checkbox" checked><label for="ratio" style="margin:0">Pertahankan rasio aspek</label></div>
+<div class="checkrow"><input id="upscale" type="checkbox"><label for="upscale" style="margin:0">Izinkan memperbesar gambar</label></div>
+</div></div>
+<button class="green convert" id="convert" disabled>⇄ Konversi Gambar</button>
+</div></section>
+<section class="card"><div class="card-head" style="background:#eaf2ff;color:#10244d">👁 Pratinjau & Hasil</div><div class="card-body">
+<div class="preview" id="preview"><div class="placeholder">Pratinjau gambar akan tampil di sini</div></div>
+<div class="details"><div><span>Nama file</span><b id="outName">—</b></div><div><span>Ukuran hasil</span><b id="outSize">—</b></div><div><span>Resolusi</span><b id="outRes">—</b></div><div><span>Penghematan</span><b id="saving">—</b></div></div>
+<div class="actions"><button id="download" disabled>⬇ Unduh</button><button class="secondary" id="reset">↻ Reset</button></div><p class="status" id="resultStatus">Hasil konversi akan muncul di sini.</p>
+</div></section></div>
+<div class="features"><div class="feature">⚡ Proses cepat<span>Langsung di browser</span></div><div class="feature">🔒 Aman & privat<span>File tidak diunggah</span></div><div class="feature">✨ Kualitas terjaga<span>Atur sesuai kebutuhan</span></div><div class="feature">📱 Responsif<span>Desktop dan mobile</span></div></div>
+<div class="tip" id="tips"><strong>💡 Tips gambar website</strong><br>• Gunakan WebP untuk ukuran file lebih ringan.<br>• Artikel blog umumnya cukup 1200 px di sisi lebar.<br>• Foto gunakan kualitas 75–85%; logo transparan sebaiknya PNG atau WebP.</div>
+</main><footer>DEKEKU Tools · Image Converter · Pemrosesan dilakukan lokal di perangkat Anda</footer>
+<script>
+const $=id=>document.getElementById(id);
+let source=null, sourceURL=null, resultURL=null, resultBlob=null, sourceName='', sourceW=0, sourceH=0;
+const presets={thumb:[400,300],card:[800,600],blog:[1200,800],standard:[1024,683],hero:[1920,800],square:[800,800]};
+function fmt(bytes){if(bytes<1024)return bytes+' B';if(bytes<1048576)return (bytes/1024).toFixed(1)+' KB';return (bytes/1048576).toFixed(2)+' MB'}
+function clean(){if(sourceURL)URL.revokeObjectURL(sourceURL);if(resultURL)URL.revokeObjectURL(resultURL);sourceURL=resultURL=null;source=null;resultBlob=null}
+$('browse').onclick=()=>$('file').click();$('drop').onclick=e=>{if(e.target.closest('button'))return;$('file').click()};
+$('drop').ondragover=e=>{e.preventDefault();$('drop').classList.add('drag')};$('drop').ondragleave=()=>$('drop').classList.remove('drag');
+$('drop').ondrop=e=>{e.preventDefault();$('drop').classList.remove('drag');if(e.dataTransfer.files[0])loadFile(e.dataTransfer.files[0])};
+$('file').onchange=e=>{if(e.target.files[0])loadFile(e.target.files[0])};
+function loadFile(file){
+ if(!file.type.startsWith('image/')){alert('Pilih file gambar yang valid.');return}
+ if(file.size>30*1024*1024){alert('Ukuran file maksimal 30 MB.');return}
+ clean();sourceName=file.name;sourceURL=URL.createObjectURL(file);source=new Image();
+ source.onload=()=>{sourceW=source.naturalWidth;sourceH=source.naturalHeight;
+ $('preview').innerHTML='';let img=document.createElement('img');img.src=sourceURL;img.alt='Preview gambar asli';$('preview').append(img);
+ $('fileStatus').textContent=`${file.name} · ${sourceW} × ${sourceH} px · ${fmt(file.size)}`;
+ $('convert').disabled=false;$('resultStatus').textContent='Gambar siap dikonversi.';$('outName').textContent='—';$('outSize').textContent='—';$('outRes').textContent='—';$('saving').textContent='—';$('download').disabled=true};
+ source.onerror=()=>alert('Gambar tidak dapat dibaca browser.');source.src=sourceURL;
+}
+$('preset').onchange=()=>{$('customSize').style.display=$('preset').value==='custom'?'grid':'none'};
+$('quality').oninput=()=>{$('qualityText').textContent=$('quality').value+'%'};
+$('convert').onclick=()=>{
+ if(!source)return;
+ let w=sourceW,h=sourceH,p=$('preset').value;
+ if(p==='custom'){w=Number($('width').value);h=Number($('height').value);if(!w||!h||w<1||h<1||w>10000||h>10000){alert('Lebar/tinggi harus 1–10000 px.');return}}
+ else if(p!=='original'){[w,h]=presets[p];if($('ratio').checked){let scale=Math.min(w/sourceW,h/sourceH);if($('upscale').checked)scale=Math.max(scale,Math.min(w/sourceW,h/sourceH));else scale=Math.min(1,scale);w=Math.round(sourceW*scale);h=Math.round(sourceH*scale)}}
+ else {w=sourceW;h=sourceH}
+ if(!$('upscale').checked&&p==='custom'&&$('ratio').checked){let scale=Math.min(1,w/sourceW,h/sourceH);w=Math.round(sourceW*scale);h=Math.round(sourceH*scale)}
+ const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');
+ const mime=$('format').value;if(mime==='image/jpeg'){ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h)}
+ ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.drawImage(source,0,0,w,h);
+ canvas.toBlob(blob=>{if(!blob){alert('Konversi gagal. Coba format lain.');return}
+ if(resultURL)URL.revokeObjectURL(resultURL);resultBlob=blob;resultURL=URL.createObjectURL(blob);
+ const ext=mime==='image/jpeg'?'jpg':mime==='image/png'?'png':'webp';const base=sourceName.replace(/\.[^.]+$/,'');
+ $('outName').textContent=base+'.'+ext;$('outSize').textContent=fmt(blob.size);$('outRes').textContent=w+' × '+h+' px';
+ const original=Number($('file').files[0]?.size||0);const diff=original?Math.round((1-blob.size/original)*100):0;
+ $('saving').textContent=(diff>=0?diff+'% lebih kecil':Math.abs(diff)+'% lebih besar');$('saving').style.color=diff>=0?'#16a34a':'#c2410c';
+ $('preview').innerHTML='';let img=document.createElement('img');img.src=resultURL;img.alt='Preview hasil';$('preview').append(img);
+ $('download').disabled=false;$('resultStatus').textContent='Konversi berhasil. Hasil siap diunduh.';
+ },mime,Number($('quality').value)/100);
+};
+$('download').onclick=()=>{if(!resultBlob||!resultURL)return;const a=document.createElement('a');a.href=resultURL;a.download=$('outName').textContent;a.click()};
+$('reset').onclick=()=>{clean();$('file').value='';$('preview').innerHTML='<div class="placeholder">Pratinjau gambar akan tampil di sini</div>';$('fileStatus').textContent='Belum ada gambar dipilih.';$('outName').textContent=$('outSize').textContent=$('outRes').textContent=$('saving').textContent='—';$('resultStatus').textContent='Hasil konversi akan muncul di sini.';$('convert').disabled=$('download').disabled=true};
+</script>
+</body></html>
