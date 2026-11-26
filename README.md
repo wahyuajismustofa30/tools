@@ -4,4 +4,5 @@ Kumpulan utilitas, script interaktif, dan alat bantu pengembangan perangkat luna
 
 ## Daftar Alat:
 - **`gh-menu.sh`** (shortcut global: `git-menu`): Menu interaktif berbasis Bash untuk semua operasi GitHub via `gh` CLI (Repository, Branch, PR, Issues, Actions, Releases).
-- **`dekeku-image-converter.html`**: Utilitas konversi gambar web.
+- **`dekeku-image-converter.html`**: Utilitas konversi gambar web berbasis browser.
+- **`convert-to-webp.py`**: Konversi batch gambar ke format WebP dengan optimasi ukuran website.
